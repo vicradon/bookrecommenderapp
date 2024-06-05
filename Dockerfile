@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.9-slim AS flask-build
 
 WORKDIR /app
 
@@ -7,10 +7,23 @@ RUN pip install -r requirements.txt
 
 COPY . /app/
 
-ENV PYTHONUNBUFFERED 1
-EXPOSE 5000
-
 STOPSIGNAL SIGINT
 
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+###########################
+
+FROM nginx AS runner
+
+RUN apt-get update && apt-get install -y python3 python3-pip
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=flask-build /app /app
+
+WORKDIR /app
+
+EXPOSE 80
+
+ENV PYTHONUNBUFFERED 1
+
+CMD ["sh", "-c", "ls -la"]
+# CMD ["sh", "-c", "nginx && python3 app.py"]
