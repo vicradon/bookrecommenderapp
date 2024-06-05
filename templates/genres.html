@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Book Genres</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <header class="py-3">
+      <h1 class="my-3">Book Genres</h1>
+      {% if is_home %}
+      <p>Welcome to the Book Recommendation App!</p>
+      {% endif %}
+    </header>
+    <div class="container">
+      <ul class="my-3">
+        {% for genre in genres %}
+        <li class="mb-2">
+          <a href="{{ url_for('recommendations', genre=genre) }}"
+            >{{ genre.capitalize() }}</a
+          >
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>

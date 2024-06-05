@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ genre.capitalize() }} Recommendations</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <header class="py-3">
+      <h1 class="my-3">{{ genre.capitalize() }} Recommendations</h1>
+    </header>
+    <div class="container">
+      <ul class="my-3">
+        {% for book in books %}
+        <li class="mb-2">
+          <a href="{{ url_for('book_details', book_id=book['id']) }}"
+            >{{ book['title'] }}</a
+          >
+          by {{ book['author'] }}
+        </li>
+        {% endfor %}
+      </ul>
+      <a href="{{ url_for('genres') }}" class="my-3">Back to Genres</a>
+    </div>
+  </body>
+</html>

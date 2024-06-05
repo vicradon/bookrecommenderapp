@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Favorite Books</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <header class="py-3">
+      <h1 class="my-3">Favorite Books</h1>
+    </header>
+    <div class="container">
+      <ul class="my-3">
+        {% for book in favorites %}
+        <li class="mb-2">{{ book['title'] }} by {{ book['author'] }}</li>
+        {% endfor %}
+      </ul>
+      <a href="{{ url_for('genres') }}" class="my-3">Back to Genres</a>
+    </div>
+  </body>
+</html>
