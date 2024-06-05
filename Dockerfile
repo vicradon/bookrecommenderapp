@@ -1,13 +1,16 @@
 FROM python:3.9-slim
 
-ENV PYTHONUNBUFFERED 1
-
 WORKDIR /app
 
-RUN pip install Flask
+COPY requirements.text .
+RUN pip install -r requirements.txt
 
 COPY . /app/
 
+ENV PYTHONUNBUFFERED 1
 EXPOSE 5000
 
-CMD ["python", "app.py"]
+STOPSIGNAL SIGINT
+
+ENTRYPOINT ["python"]
+CMD ["app.py"]
